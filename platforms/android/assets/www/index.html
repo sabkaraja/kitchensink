@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * data:* gap:*; style-src 'self' 'unsafe-inline'; font-src * data:; img-src * data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' 
+		gap:* 
+		127.0.0.1:*
+		http://*.echohello.com
+		http://*.google-analytics.com
+		http://*.google.com
+		http://*.gstatic.com
+		http://*.googleapis.com
+		https://*.echohello.com
+		https://*.google.com
+		https://*.gstatic.com
+		https://*.googleapis.com
+		https://*.twitter.com
+		https://*.facebook.com
+		https://*.apple.com
+		https://auth-server.herokuapp.com
+	;">
+	
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
+
+	<title>Kitchen Sink</title>
+
+	
+	<script src="libs/jquery.min.js"></script>
+	<script src="libs/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/index.js"></script>
+	<script src="js/seedrandom-min.js"></script>
+
+	<link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
+	<link href="css/app.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div data-role="page" id="mainPage">
+    <div data-role="header" data-position="fixed">
+        <h1>Kitchen Sink</h1>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview">
+            <li><a href="#camera">Camera</a></li>
+            <li><a href="#connection">Connection</a></li>
+            <li><a href="#device">Device</a></li>
+            <li><a href="#file">File</a></li>
+            <li><a href="#geolocation">Geolocation</a></li>
+            <li><a href="#notification">Notification</a></li>
+            <li><a href="#storage">Storage</a></li>
+        </ul>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4>click an option for test</h4>
+    </div>
+</div>
+
+
+<div data-role="page" id="camera">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+        <h1>Camera</h1>
+    </div>
+    <div data-role="content">
+        <a href="#" id="camera_button_normal" data-role="button">Camera</a>
+        <a href="#" id="camera_button_edit" data-role="button">Camera (Edit)</a>
+        <a href="#" id="camera_button_library" data-role="button">Library</a>
+        <img id="camera_img" width="300" alt="Image will be shown here" src=""/>
+
+
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+<div data-role="page" id="capture">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Capture</h1>
+    </div>
+    <div data-role="content">
+
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+<div data-role="page" id="compass">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Compass</h1>
+    </div>
+    <div data-role="content">
+        <div id="heading">Waiting for heading...</div>
+        <img id="compass_img" src="img/Compass-Rose.png" alt="Image of the
+        compass"/>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+<div data-role="page" id="connection">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Connection</h1>
+    </div>
+    <div data-role="content">
+        <p>Type: </p><p><span id="connection_status">Unknown</span></p>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+<div data-role="page" id="device">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Device</h1>
+    </div>
+    <div data-role="content">
+        <p>Name: <span id="device_name">Unknown</span></p>
+        <p>Phonegap: <span id="device_phonegap">Unknown</span></p>
+        <p>Platform: <span id="device_platform">Unknown</span></p>
+        <p>UUID: <span id="device_uuid">Unknown</span></p>
+        <p>Version: <span id="device_version">Unknown</span></p>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+<div data-role="page" id="contacts">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Contacts</h1>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview" id="contactslist">
+        </ul>
+
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+<div data-role="page" id="contactdetail">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Contact Detail</h1>
+    </div>
+    <div>
+        <ul data-role="listview" id="contactdata">
+        </ul>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+
+<div data-role="page" id="events">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Events</h1>
+    </div>
+    <div data-role="content">
+
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+<div data-role="page" id="file">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>File</h1>
+    </div>
+    <div data-role="content">
+        <a data-role="button" id="createFileButton">Create file</a>
+        <a data-role="button" id="readFileButton">Read file</a>
+        <a data-role="button" id="fileInfoButton">Show file info</a>
+        <a data-role="button" id="deleteFileButton">Delete file</a>
+        <div id="fileOutput"></div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+<div data-role="page" id="geolocation">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Geolocation</h1>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview">
+            <li>Latitude: <span id="geo_lat"></span></li>
+            <li>Longitude: <span id="geo_long"></span></li>
+            <li>Altitude: <span id="geo_alt"></span></li>
+            <li>Accuracy: <span id="geo_acc"></span></li>
+            <li>Alt. Accuracy: <span id="geo_altacc"></span></li>
+            <li>Heading: <span id="geo_heading"></span></li>
+            <li>Speed: <span id="geo_speed"></span></li>
+            <li>Timestamp: <span id="geo_timestamp"></span></li>
+        </ul>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+
+<div data-role="page" id="media">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Media</h1>
+    </div>
+    <div data-role="content">
+        <a data-role="button" id="recordButton">Record</a>
+        <a data-role="button" id="stopButton">Stop</a>
+        <a data-role="button" id="playButton">Play</a>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+<div data-role="page" id="notification">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+
+        <h1>Notification</h1>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview">
+            <li><a href="#" id="notification_alert">Alert</a></li>
+            <li><a href="#" id="notification_confirm">Confirm</a></li>
+            <li><a href="#" id="notification_beep">Beep</a></li>
+            <li><a href="#" id="notification_vibrate">Vibrate</a></li>
+        </ul>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+
+<div data-role="page" id="storage">
+    <div data-role="header" data-position="fixed">
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+        <h1>Storage</h1>
+    </div>
+    <div data-role="content">
+        <a data-role="button" id="storeButton">Store data</a>
+        <a data-role="button" id="readButton">Read data</a>
+        <div id="localDataOutput"></div>
+        <div id="sessionDataOutput"></div>
+        <div id="dbDataOutput"></div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4><a href="#mainPage">back to main page</a></h4>
+    </div>
+</div>
+</body>
+</html>
+
