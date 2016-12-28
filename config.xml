@@ -127,10 +127,6 @@
 		<icon platform="ios"  width="58"  height="58" src="res/icon/ios/icon-29-2x.png" />
 		<icon platform="ios"  width="29"  height="29" src="res/icon/ios/icon-29-1x.png" />
 
-	
-		<!-- <gap:config-file platform="ios" target="*-Info.plist" overwrite="true">
-			<dict><key>UIStatusBarHidden</key><true/></dict>
-		</gap:config-file> -->
 		<gap:config-file platform="ios" target="*-Info.plist" parent="NSLocationAlwaysUsageDescription" overwrite="true"><string>ECHOHELLO needs to access your location. Your location will be shown on the map and will be used to provide you nearby search results. Turn Off Location Services in Settings > Privacy</string></gap:config-file>
 		<gap:config-file platform="ios" target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription" overwrite="true"><string>ECHOHELLO needs to access your location. Your location will be shown on the map and will be used to provide you nearby search results.Turn Off Location Services in Settings > Privacy</string></gap:config-file>
 		<gap:config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescription" overwrite="true"><string>ECHOHELLO needs to access your photo library.</string></gap:config-file>
