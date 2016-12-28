@@ -1,80 +1,5 @@
 var PGDemo = {};
 
-////////////////////////////////////////////////////////////////////////////////
-// Accelerometer demo
-
-$(document).on('pageshow', '#accelerometer', function (event) {
-    console.log("started watching accelerometer");
-    PGDemo.accelerometer.callback = function (accel) {
-        $('#accel_x').text(accel.x);
-        $('#accel_y').text(accel.y);
-        $('#accel_z').text(accel.z);
-        $('#accel_timestamp').text(accel.timestamp);
-    };
-    PGDemo.accelerometer.startWatch();
-});
-
-$(document).on('pagehide', '#accelerometer', function (event) {
-    console.log("stop watching accelerometer");
-    PGDemo.compass.stopWatch();
-    PGDemo.compass.callback = null;
-});
-
-PGDemo.accelerometer = function () {
-    var x = null;
-    var y = null;
-    var z = null;
-    var timestamp = null;
-
-    var watchID = null;
-
-    function startWatch() {
-        var options = { 
-            frequency:100 
-        };
-        watchID = navigator.accelerometer.watchAcceleration(accelerationChanged, accelerationError, options);
-    }
-
-    function stopWatch() {
-        if (watchID) {
-            navigator.accelerometer.clearWatch(watchID);
-            watchID = null;
-        }
-    }
-
-    function accelerationChanged(acceleration) {
-        x = acceleration.x;
-        y = acceleration.y;
-        z = acceleration.z;
-        timestamp = acceleration.timestamp;
-
-        if (obj.callback) {
-            obj.callback({
-                x: x, 
-                y: y, 
-                z: z, 
-                timestamp: timestamp
-            });
-        }
-    }
-
-    function accelerationError(error) {
-        console.log('Acceleration error: ' + error.code);
-    }
-
-    var obj = {
-        callback: function (accel) {
-            // To be provided by clients
-        },
-        startWatch: function () {
-            startWatch();
-        },
-        stopWatch: function () {
-            stopWatch();
-        }
-    };
-    return obj;
-}();
 
 ////////////////////////////////////////////////////////////////////////////////
 // Camera demo
@@ -149,156 +74,6 @@ PGDemo.camera = function () {
     };
     return obj;
 }();
-
-
-////////////////////////////////////////////////////////////////////////////////
-// Compass demo
-
-$(document).on('pageshow', '#compass', function (event) {
-    console.log("started watching compass");
-    PGDemo.compass.startWatch();
-});
-
-$(document).on('pagehide', '#compass', function (event) {
-    console.log("stop watching compass");
-    PGDemo.compass.stopWatch();
-});
-
-PGDemo.compass = function () {
-    // The watch id references the current `watchHeading`
-    var watchID = null;
-
-    // Start watching the compass
-    function startWatch() {
-        // Update compass every 1 seconds
-        var options = { 
-            frequency: 200 
-        };
-        watchID = navigator.compass.watchHeading(headingChanged, headingError, options);
-    }
-
-    // Stop watching the compass
-    function stopWatch() {
-        if (watchID) {
-            navigator.compass.clearWatch(watchID);
-            watchID = null;
-        }
-    }
-
-    // onSuccess: Get the current heading
-    function headingChanged(heading) {
-        $('#compass #heading').html(Math.floor(heading.magneticHeading));
-        // rotate(45deg)
-        $('#compass #compass_img').css('-webkit-transform', "rotate(" + (360 - heading.magneticHeading) + "deg)");
-    }
-
-    // onError: Failed to get the heading
-    function headingError(compassError) {
-        console.log('Compass error: ' + compassError.code);
-    }
-
-    return {
-        startWatch: function () {
-            startWatch();
-        },
-        stopWatch: function () {
-            stopWatch();
-        }
-    };
-}();
-
-////////////////////////////////////////////////////////////////////////////////
-// Contacts demo
-
-$(document).on('pageinit', '#contacts', function (event) {
-    console.log('started contacts');
-    var options = new ContactFindOptions();
-    options.multiple = true;
-    options.filter = "";
-    var fields = ["id", "displayName", "name"];
-    navigator.contacts.find(fields, function(contacts) {
-        // This callback is executed when the contacts have been retrieved!
-        // The contacts parameter is simply an array of objects
-        // with the specified fields
-
-        // The contacts array is not ordered... so we have to do that!
-        contacts.sort(function (a, b) {
-            // This is adapted from
-            // http://stackoverflow.com/questions/4041762/iterating-over-a-javascript-object-in-sort-order-based-on-particular-key-value-o
-            var an = a.name.formatted;
-            var bn = b.name.formatted; 
-
-            return an == bn ? 0 : (an > bn ? 1 : -1); 
-        });
-
-        var createTapHandler = function(contact) {
-            return function () {
-                console.log('looking for ' + contact.name.formatted);
-                var opts = new ContactFindOptions();
-                opts.multiple = false;
-                opts.filter = contact.id.toString();
-                var fields = ["id", "displayName", "name", "emails", "phoneNumbers"];
-                navigator.contacts.find(fields, function(contacts) {
-                    console.log('found ' + contacts.length + ' contacts');
-                    var person = contacts[0];
-                    console.log('found ' + person.name.formatted);
-                    $.mobile.changePage('#contactdetail');
-
-                    var data = [];
-                    data.push(person.name.formatted);
-
-                    var index = 0;
-                    var len = 0;
-
-                    if (person.emails) {
-                        for (index = 0, len = person.emails.length; index < len; ++index) {
-                            console.log(person.emails[index]);
-                            data.push(person.emails[index].value);
-                        }
-                    }
-
-                    if (person.phoneNumbers) {
-                        for (index = 0, len = person.phoneNumbers.length; index < len; ++index) {
-                            console.log(person.phoneNumbers[index]);
-                            data.push(person.phoneNumbers[index].value);
-                        }
-                    }
-
-                    index = 0;
-                    len = 0;
-                    var list = $('#contactdata');
-                    list.empty();
-                    for (index = 0, len = data.length; index < len; ++index) {
-                        var datum = data[index];
-                        var newLi = $('<li>');
-                        var newA = $('<a>');
-                        newA.append(datum);
-                        newLi.append(newA);
-                        list.append(newLi);
-                    }
-                    list.listview('refresh');
-                }, null, opts);
-            };
-        };
-
-        var index = 0;
-        var len = 0;
-        var list = $('#contactslist');
-        list.empty();
-        console.log("number of items: " + contacts.length);
-        for (index = 0, len = contacts.length; index < len; ++index) {
-            var contact = contacts[index];
-            var newLi = $('<li>');
-            var newA = $('<a>');
-            newA.append(contact.name.formatted);
-            newLi.append(newA);
-            newLi.on('tap', createTapHandler(contact));
-            list.append(newLi);
-        }
-        list.listview('refresh');
-
-    }, null, options);
-});
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -380,8 +155,7 @@ $(document).on('pageinit', '#file', function () {
         "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "PhoneGap rocks!",
         "Mobile web apps rock!",
-        "This code generates random files",
-        "This application is brought to you by http://mobile-training.ch/"
+        "This code generates random files"
     ];
 
     // This better number generator comes from
@@ -736,8 +510,7 @@ PGDemo.storage = function () {
         "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "PhoneGap rocks!",
         "Mobile web apps rock!",
-        "This code generates random files",
-        "This application is brought to you by http://mobile-training.ch/"
+        "This code generates random files"
     ];
 
     return {
