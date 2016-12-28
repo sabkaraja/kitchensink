@@ -2,7 +2,7 @@
 <widget id="com.akosma.KitchenSink" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>PGKitchenSink</name>
     <description>
-        Application that demonstrates various PhoneGap APIs.
+        Application that demonstrates various  APIs.
     </description>
     <author email="ako@trifork.com" href="http://trifork.com">
         Trifork GmbH
@@ -53,21 +53,93 @@
     <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" />
     <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/icon-96-xhdpi.png" />
 
-    <icon gap:platform="ios" height="57" src="res/icon/ios/icon-57.png" width="57" />
-    <icon gap:platform="ios" height="72" src="res/icon/ios/icon-72.png" width="72" />
-    <icon gap:platform="ios" height="114" src="res/icon/ios/icon-57-2x.png" width="114" />
-    <icon gap:platform="ios" height="144" src="res/icon/ios/icon-72-2x.png" width="144" />
-
     <gap:splash gap:density="ldpi" gap:platform="android" src="res/screen/android/screen-ldpi-portrait.png" />
     <gap:splash gap:density="mdpi" gap:platform="android" src="res/screen/android/screen-mdpi-portrait.png" />
     <gap:splash gap:density="hdpi" gap:platform="android" src="res/screen/android/screen-hdpi-portrait.png" />
     <gap:splash gap:density="xhdpi" gap:platform="android" src="res/screen/android/screen-xhdpi-portrait.png" />
 
-    <gap:splash gap:platform="ios" height="480" src="res/screen/ios/screen-iphone-portrait.png" width="320" />
-    <gap:splash gap:platform="ios" height="960" src="res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
-    <gap:splash gap:platform="ios" height="1024" src="res/screen/ios/screen-ipad-portrait.png" width="768" />
-    <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
 
     <access origin="http://127.0.0.1*" />
     <content src="index.html" />
+
+	<platform name="android">
+		<icon density="ldpi" src="res/icon/android/icon-36-ldpi.png" />
+		<icon density="mdpi" src="res/icon/android/icon-48-mdpi.png" />
+		<icon density="hdpi" src="res/icon/android/icon-72-hdpi.png" />
+		<icon density="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />
+		<icon density="xxhdpi" src="res/icon/android/icon-144-xxhdpi.png" />
+		<icon density="fr-xxhdpi" src="res/icon/android/icon-144-xxhdpi.png" />
+		<splash density="port-ldpi" src="res/screen/android/screen-ldpi-portrait.png" />
+		<splash density="port-mdpi" src="res/screen/android/screen-mdpi-portrait.png" />
+		<splash density="port-hdpi" src="res/screen/android/screen-hdpi-portrait.png" />
+		<splash density="port-xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" />
+	
+		<gap:config-file platform="android" parent="/manifest" mode="merge">
+			<!-- <supports-screens 
+				android:xlargeScreens="false" 
+				android:largeScreens="false" 
+				android:smallScreens="false" /> -->
+            
+            <application android:theme="@android:style/Theme.NoTitleBar">
+				<activity android:theme="@android:style/Theme.NoTitleBar"></activity>
+			</application>
+			
+			<uses-permission android:name="android.permission.INTERNET" />
+			<uses-permission android:name="com.android.vending.BILLING" />
+			
+			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+			<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+			<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+			
+			<access origin="http://*" />
+			<access origin="https://*" />
+			<allow-navigation href="*" />
+			<allow-intent href="*" />
+		</gap:config-file>
+	</platform>
+	
+	<platform name="ios">
+		<allow-intent href="itms:*" />
+		<allow-intent href="itms-apps:*" />
+		<allow-intent href="http://*/*" />
+		<allow-intent href="https://*/*" />
+		<icon platform="ios" width="180" height="180" src="res/icon/ios/icon-60-3x.png" />
+		<icon platform="ios" width="120" height="120" src="res/icon/ios/icon-60-2x.png" />
+		<icon platform="ios"  width="60"  height="60" src="res/icon/ios/icon-60-1x.png" />
+
+		<icon platform="ios" width="152" height="152" src="res/icon/ios/icon-76-2x.png" />
+		<icon platform="ios"  width="76"  height="76" src="res/icon/ios/icon-76-1x.png" />
+
+		<icon platform="ios" height="144" width="144" src="res/icon/ios/icon-72-2x.png" />
+		<icon platform="ios"  height="72"  width="72" src="res/icon/ios/icon-72.png" />
+
+		<icon platform="ios" height="114" width="114" src="res/icon/ios/icon-57-2x.png" />
+		<icon platform="ios"  height="57"  width="57" src="res/icon/ios/icon-57.png" />
+
+		<icon platform="ios" width="100" height="100" src="res/icon/ios/icon-50-2x.png" />
+		<icon platform="ios"  width="50"  height="50" src="res/icon/ios/icon-50-1x.png" />
+
+		<icon platform="ios"  width="80"  height="80" src="res/icon/ios/icon-40-2x.png" />
+		<icon platform="ios"  width="40"  height="40" src="res/icon/ios/icon-40-1x.png" />
+		
+		<icon platform="ios"  width="58"  height="58" src="res/icon/ios/icon-29-2x.png" />
+		<icon platform="ios"  width="29"  height="29" src="res/icon/ios/icon-29-1x.png" />
+
+	
+		<!-- <gap:config-file platform="ios" target="*-Info.plist" overwrite="true">
+			<dict><key>UIStatusBarHidden</key><true/></dict>
+		</gap:config-file> -->
+		<gap:config-file platform="ios" target="*-Info.plist" parent="NSLocationAlwaysUsageDescription" overwrite="true"><string>ECHOHELLO needs to access your location. Your location will be shown on the map and will be used to provide you nearby search results. Turn Off Location Services in Settings > Privacy</string></gap:config-file>
+		<gap:config-file platform="ios" target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription" overwrite="true"><string>ECHOHELLO needs to access your location. Your location will be shown on the map and will be used to provide you nearby search results.Turn Off Location Services in Settings > Privacy</string></gap:config-file>
+		<gap:config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescription" overwrite="true"><string>ECHOHELLO needs to access your photo library.</string></gap:config-file>
+		<gap:config-file platform="ios" target="*-Info.plist" parent="NSCameraUsageDescription" overwrite="true"><string>ECHOHELLO needs to access your device camera.</string></gap:config-file>
+		<gap:config-file platform="ios" parent="NSAppTransportSecurity">
+			<dict>
+				<key>NSAllowsArbitraryLoads</key>
+				<true/>
+			</dict>
+		</gap:config-file>
+	</platform>
+	
 </widget>
